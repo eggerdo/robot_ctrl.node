@@ -1,0 +1,11 @@
+{
+  "name": "robot_ctrl.node",
+  "version": "0.1.0",
+  "description": "Robot Remote Control",
+  "main": "robot_ctrl.js",
+  "author":"Dominik Egger",
+  "devDependencies": {
+    "express": "*"
+  },
+  "contributors": []
+}

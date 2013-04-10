@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Robot Control</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>    
+    <div id="video">
+      <div id="frame">
+        <img id="image" src="no-video.jpg" width="640" height="480" />
+      </div>
+      <div id="fps"></div>
+    </div>
+    <p />
+    <div id="control">
+      <table>
+        <tr>
+          <th></th>
+          <th><input type="submit" name="FWD" value="FWD" onclick="forward();" class="button"></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th><input type="submit" name="LEFT" value="LEFT" onclick="left();" class="button"></th>
+          <th><input type="submit" name="BWD" value="BWD" onclick="backward();" class="button"></th>
+          <th><input type="submit" name="RIGHT" value="RIGHT" onclick="right();" class="button"></th>
+        </tr>
+        <tr> 
+          <th></th>
+          <th><input type="submit" name="STOP" value="STOP" onclick="stop();" class="button"></th>
+          <th></th>
+        </tr>
+        <tr> 
+          <th><input type="submit" name="ON" value="ON" onclick="setCameraOn(true);" class="button"></th>
+          <th><input type="submit" name="TOGGLE" value="TOGGLE" onclick="toggle();" class="button"></th>
+          <th><input type="submit" name="OFF" value="OFF" onclick="setCameraOn(false);" class="button"></th>
+        </tr>
+      </table>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/bridge.js"></script>
+    <script type="text/javascript" src="static/script.js"></script>
+  </body>
+</html>

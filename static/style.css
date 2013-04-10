@@ -1,0 +1,69 @@
+body { 
+  font-family: arial; 
+  font-size: 14px; 
+  width: 1280px; 
+  margin: 0 auto;
+  margin-top: 0.9em; 
+  margin-bottom: 0.9em;
+}
+
+.rotateleft {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.rotateright {
+  -moz-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+#fps {
+  position: absolute; 
+  left: 20px; 
+  top: 20px; 
+  font-weight: bold; 
+  color: #FF0000;
+  font-family: Cambria, Cochin, Georgia, serif; 
+  font-size: 22px
+}
+
+#video {
+  position: relative; 
+  width: 640px; 
+  height: auto; 
+  margin: 0 auto;
+  border: thick solid black;
+}
+
+#image {
+  position: relative; 
+  display: block;
+  overflow: auto
+}
+
+#control{
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+.button {
+  height: 40px;
+  width: 150px;
+  font-family: Cambria, Cochin, Georgia, serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+table { 
+/*  border: 2px solid #CCCCCC; */
+  border-collapse: collapse;
+  width: 250px;
+  font-family: Cambria, Cochin, Georgia, serif;
+  font-size: 14px;
+  margin: 0 auto;   
+}
