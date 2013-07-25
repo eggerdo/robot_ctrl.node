@@ -16,13 +16,16 @@
     <div id="control">
       <table>
         <tr>
+          <p id="speed"></p>
+        </tr>
+        <tr>
           <th></th>
-          <th><input type="submit" name="FWD" value="FWD" onclick="forward();" class="button"></th>
+          <th><input type="submit" name="FWD" value="FWD" onclick="straightForward();" class="button"></th>
           <th></th>
         </tr>
         <tr>
           <th><input type="submit" name="LEFT" value="LEFT" onclick="left();" class="button"></th>
-          <th><input type="submit" name="BWD" value="BWD" onclick="backward();" class="button"></th>
+          <th><input type="submit" name="BWD" value="BWD" onclick="straightBackward();" class="button"></th>
           <th><input type="submit" name="RIGHT" value="RIGHT" onclick="right();" class="button"></th>
         </tr>
         <tr> 
@@ -30,10 +33,18 @@
           <th><input type="submit" name="STOP" value="STOP" onclick="stop();" class="button"></th>
           <th></th>
         </tr>
+        <tr>
+          <th>&nbsp;</th>
+        </tr>
         <tr> 
           <th><input type="submit" name="ON" value="ON" onclick="setCameraOn(true);" class="button"></th>
           <th><input type="submit" name="TOGGLE" value="TOGGLE" onclick="toggle();" class="button"></th>
           <th><input type="submit" name="OFF" value="OFF" onclick="setCameraOn(false);" class="button"></th>
+        </tr>
+        <tr> 
+          <th><input type="submit" name="UP" value="UP" onclick="cameraUp();" class="button"></th>
+          <th><input type="submit" name="STOP" value="STOP" onclick="cameraStop();" class="button"></th>
+          <th><input type="submit" name="DOWN" value="DOWN" onclick="cameraDown();" class="button"></th>
         </tr>
       </table>
     </div>

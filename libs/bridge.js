@@ -52,11 +52,13 @@ zmq.Context = function(ws_conn_string){
     this.send_buffer = [];
 }
     
-zmq.Context.prototype.connect = function(socket, zmq_conn_string){
-    var conn = {};
-    conn['zmq_conn_string'] = zmq_conn_string;
-    conn['socket_type'] = socket.socket_type;
-    var msg = JSON.stringify(conn)
+zmq.Context.prototype.connect = function(socket, zmq_conn_string, auth){
+    if (!auth) {
+		auth = {};
+	}
+    auth['zmq_conn_string'] = zmq_conn_string;
+    auth['socket_type'] = socket.socket_type;
+    var msg = JSON.stringify(auth)
     var msgobj = socket.construct_message(msg, 'connect')
     msg = JSON.stringify(msgobj);
     this.send(msg);
@@ -119,8 +121,8 @@ zmq.Socket.prototype.construct_message = function(msg, msg_type){
     }
 }
 
-zmq.Socket.prototype.connect = function(zmq_conn_string){
-    this.ctx.connect(this, zmq_conn_string);
+zmq.Socket.prototype.connect = function(zmq_conn_string, auth){
+    this.ctx.connect(this, zmq_conn_string, auth);
 }
 
 zmq.ReqSocket = function(ctx){
@@ -162,7 +164,7 @@ zmq.ReqSocket.prototype._handle = function(msg){
 
 
 zmq.SubSocket = function(ctx){
-    zmq.ReqSocket.call(this, ctx);
+    zmq.Socket.call(this, ctx);
     this.socket_type = zmq.SUB;
 }
 

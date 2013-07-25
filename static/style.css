@@ -31,6 +31,19 @@ body {
   font-size: 22px
 }
 
+#speed {
+  position: relative; 
+  /*left: 20px; 
+  top: 20px; */
+  width: 640px; 
+  height: auto; 
+  margin: 0 auto;
+  font-weight: bold; 
+  /*color: #FF0000;*/
+  font-family: Cambria, Cochin, Georgia, serif; 
+  font-size: 22px
+}
+
 #video {
   position: relative; 
   width: 640px; 

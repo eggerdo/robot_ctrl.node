@@ -1,10 +1,15 @@
+FORWARD 			= "FORWARD";
 STRAIGHT_FORWARD	= "STRAIGHT_FORWARD";
+BACKWARD 			= "BACKWARD";
 STRAIGHT_BACKWARD	= "STRAIGHT_BACKWARD";
 ROTATE_LEFT			= "ROTATE_LEFT";
 ROTATE_RIGHT		= "ROTATE_RIGHT";
 STOP 				= "NONE"
 
 TOGGLE 				= "TOGGLE"
+CAMERA_UP			= "UP"
+CAMERA_DOWN			= "DOWN"
+CAMERA_STOP			= "STOP"
 
 var cmdSocket
   , context
@@ -22,33 +27,63 @@ var cameraOn = true
 var fpsCount = 0
   , lastFPSTime = 0
 
-forward = function() {
+var speed = 100;
+
+straightForward = function() {
 	var speed = -1
-	sendDriveCommand(STRAIGHT_FORWARD, speed);
+	sendDriveCommand(STRAIGHT_FORWARD, speed, 0);
 }
 
-backward = function() {
-	var speed = -1
-	sendDriveCommand(STRAIGHT_BACKWARD, speed);
+var driving = false
+var lastDriveTime = 0;
+forward = function(angle) {
+	// var speed = -1
+	sendDriveCommand(FORWARD, speed, angle);
+}
+
+straightBackward = function() {
+	// var speed = -1
+	sendDriveCommand(STRAIGHT_BACKWARD, speed, 0);
+}
+
+backward = function(angle) {
+	// var speed = -1
+	sendDriveCommand(BACKWARD, speed, angle);
 }
 
 left = function() {
-	var speed = 50
-	sendDriveCommand(ROTATE_LEFT, speed);
+	var speed = 80
+	sendDriveCommand(ROTATE_LEFT, speed, 0);
 }
 
 right = function() {
-	var speed = 50
-	sendDriveCommand(ROTATE_RIGHT, speed);
+	var speed = 80
+	sendDriveCommand(ROTATE_RIGHT, speed, 0);
 }
 
 stop = function() {
-	var speed = -1
-	sendDriveCommand(STOP, speed);
+	driving = false;
+	// var speed = -1
+	sendDriveCommand(STOP, speed, 0);
 }
 
 toggle = function() {
 	sendCameraCommand(TOGGLE);
+}
+
+var cameraMoving = false;
+var lastCameraTime = 0;
+cameraUp = function() {
+	sendCameraCommand(CAMERA_UP);
+}
+
+cameraStop = function() {
+	cameraMoving = false;
+	sendCameraCommand(CAMERA_STOP);
+}
+
+cameraDown = function() {
+	sendCameraCommand(CAMERA_DOWN);
 }
 
 setCameraOn = function(on) {
@@ -57,15 +92,18 @@ setCameraOn = function(on) {
 }
 
 onVideoMessage = function(msg) {
+	console.log("recv");
 	try {
 		if (Array.isArray(msg) && msg.length == 3) {
 			// console.log("target:", msg[0], "header:", msg[1], "data:", msg[2]);
 
 			target = msg[0];
-			header = JSON.parse(msg[1]);
+			// header = JSON.parse(msg[1]);
+			rotation = msg[1];
+			// console.log("rotation: ", rotation);
 			data = msg[2];
 
-			var rotation = header.rotation;
+			// var rotation = header.rotation;
 			if (rotation != g_rotation) {
 				g_rotation = rotation;
 				setTransform();
@@ -136,44 +174,89 @@ setTransform = function() {
 	}
 }
 
+var lastCameraCommand = CAMERA_STOP
 sendCameraCommand = function(command) {
-	clientCreated();
-	var message = JSON.stringify({
-		header: {
-			id: 172,
-			tid: 0,
-			timestamp: getTime(),
-			robot_id: "Romo",
-			version: "0.1"
-		},
-		data: {
-			type: command
-		}
-	});
-	cmdSocket.send(['', message]);
-	console.log("sent: " + message);
-	clientSent();
+	lastCameraTime = getTime();
+	if (!cameraMoving || (lastCameraCommand != command)) {
+		lastCameraCommand = command;
+		cameraMoving = true;
+		// clientCreated();
+		var message = JSON.stringify({
+			header: {
+				id: 172,
+				tid: 0,
+				timestamp: getTime(),
+				robot_id: "Romo",
+				version: "0.1"
+			},
+			data: {
+				type: command
+			}
+		});
+		cmdSocket.send(['', message]);
+		console.log("sent: " + message);
+		// clientSent();
+
+		checkCameraTimeout(command);
+	}
 }
 
-sendDriveCommand = function(command, speed) {
-	clientCreated();
-	var message = JSON.stringify({
-		header: {
-			id: 171,
-			tid: 0,
-			timestamp: getTime(),
-			robot_id: "Romo",
-			version: "0.1"
-		},
-		data: {
-			move: command,
-			speed: speed,
-			radius: 0
-		}
-	});
-	cmdSocket.send(['', message]);
-	console.log("sent: " + message);
-	clientSent();
+var TIMEOUT = 500
+checkDrivingTimeout = function(command) {
+	if (command != STOP) {
+		setTimeout(function() {
+			if (getTime() - lastDriveTime > TIMEOUT) {
+				if (lastDriveCommand != STOP) {
+					stop();
+				}
+			} else {
+				checkDrivingTimeout(command);
+			}
+		}, TIMEOUT);
+	}
+}
+
+checkCameraTimeout = function(command) {
+	if (command != CAMERA_STOP) {
+		setTimeout(function() {
+			if (getTime() - lastCameraTime > TIMEOUT) {
+				if (lastCameraCommand != CAMERA_STOP) {
+					cameraStop();
+				}
+			} else {
+				checkCameraTimeout(command);
+			}
+		}, TIMEOUT);
+	}
+}
+
+var lastDriveCommand = STOP
+sendDriveCommand = function(command, speed, angle) {
+	lastDriveTime = getTime();
+	if (!driving || (lastDriveCommand != command)) {
+		lastDriveCommand = command;
+		driving = true
+		// clientCreated();
+		var message = JSON.stringify({
+			header: {
+				id: 171,
+				tid: 0,
+				timestamp: getTime(),
+				robot_id: "Romo",
+				version: "0.1"
+			},
+			data: {
+				move: command,
+				speed: speed,
+				radius: angle
+			}
+		});
+		cmdSocket.send(['', message]);
+		console.log("sent: " + message);
+		// clientSent();
+
+		checkDrivingTimeout(command);
+	}
 }
 
 getTime = function() {
@@ -256,6 +339,22 @@ setDebug = function(val) {
 	}
 }
 
+incSpeed = function() {
+	speed += 10;
+	if (speed > 100) {
+		speed = 100;
+	}
+	$('#speed').text('Speed: ' + speed + '%');
+}
+
+decSpeed = function() {
+	speed -= 10;
+	if (speed < 10) {
+		speed = 10
+	}
+	$('#speed').text('Speed: ' + speed + '%');
+}
+
 $(function(){
 	ctxAddress = 'ws://' + window.location.hostname + ':9000';
 	context = new zmq.Context(ctxAddress);
@@ -286,29 +385,64 @@ $(function(){
 
 	sendSyncRequest();
 
+	$('#speed').text('Speed: ' + speed + '%');
+
 	$(document).keydown(function(event) {
 		if (debug) {
 			console.log("keydown", event.which);
 		}
 
 		switch(event.which) {
-			case 37: 
+			case 37:  // arrow left
+				break;
+			case 100: // keypad: 4
 				left();
 				break;
-			case 39:
+			case 39:  // arrow right
+				break;
+			case 102: // keypad: 6
 				right();
 				break;
-			case 38:
-				forward();
+			case 103: // keypad: 7
+				forward(80);
 				break;
-			case 40:
-				backward();
+			case 105: // keypad: 9
+				forward(-80);
 				break;
-			case 32:
+			case 104: // keypad: 8
+				straightForward();
+				break;
+			case 97: // keypad: 1
+				backward(80);
+				break;
+			case 99: // keypad: 3
+				backward(-80);
+				break;
+			case 87:  // w
+			case 38:  // arrow up
+				cameraUp();
+				break;
+			case 83:  // s
+			case 40: // arrow down
+				cameraDown();
+				break;
+			case 98: // keypad: 2
+				straightBackward();
+				break;
+			case 32:  // space
+			case 101: // keypad: 5
 				stop();
 				break;
-			case 68:
+			case 68: // d
 				setDebug(!debug);
+				break;
+			case 109: // keypad: -
+				decSpeed();
+				break;
+			case 107: // keypad: +
+				incSpeed();
+				break;
+			case 106: // keypad: *
 				break;
 		}
 	})
