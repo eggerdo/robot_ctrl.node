@@ -14,60 +14,50 @@
     </div>
     <p />
     <div id="control">
-      <br>
-      <p id="leapStatus">Waiting</p>
-      <br>
-      <table>
+      <table id="controltable">
         <tr>
-          <th style="width: 50%"><p class="moveelem">Move</p></th>
-          <th style="width: 25%"><p class="moveelem">Speed</p></th>
-          <th style="width: 25%"><p class="moveelem">Angle</p></th>
+          <p id="speedsetting">Speed 100%</p>
         </tr>
         <tr>
-          <td><p class="moveelem" id="move">None</p></td>
-          <td><p class="moveelem" id="speed">0%</p></td>
-          <td><p class="moveelem" id="angle">0</p></td>
+          <th>&nbsp;</th>
         </tr>
-        <!-- <tr>
+        <tr>
           <th></th>
-          <th><input type="submit" name="FWD" value="FWD" onclick="straightForward();" class="button"></th>
+          <th><input type="submit" name="FWD" value="FWD" onclick="straightForward();" class="bigbutton"></th>
           <th></th>
         </tr>
         <tr>
-          <th><input type="submit" name="LEFT" value="LEFT" onclick="left();" class="button"></th>
-          <th><input type="submit" name="BWD" value="BWD" onclick="straightBackward();" class="button"></th>
-          <th><input type="submit" name="RIGHT" value="RIGHT" onclick="right();" class="button"></th>
+          <th><input type="submit" name="LEFT" value="LEFT" onclick="left();" class="bigbutton"></th>
+          <th><input type="submit" name="BWD" value="BWD" onclick="straightBackward();" class="bigbutton"></th>
+          <th><input type="submit" name="RIGHT" value="RIGHT" onclick="right();" class="bigbutton"></th>
         </tr>
         <tr> 
           <th></th>
-          <th><input type="submit" name="STOP" value="STOP" onclick="stop();" class="button"></th>
+          <th><input type="submit" name="STOP" value="STOP" onclick="stop();" class="bigbutton"></th>
           <th></th>
         </tr>
         <tr>
           <th>&nbsp;</th>
         </tr>
         <tr> 
-          <th><input type="submit" name="ON" value="ON" onclick="setCameraOn(true);" class="button"></th>
-          <th><input type="submit" name="TOGGLE" value="TOGGLE" onclick="toggle();" class="button"></th>
-          <th><input type="submit" name="OFF" value="OFF" onclick="setCameraOn(false);" class="button"></th>
+          <th><input type="submit" name="ON" value="ON" onclick="setCameraOn(true);" class="bigbutton"></th>
+          <th><input type="submit" name="TOGGLE" value="TOGGLE" onclick="toggle();" class="bigbutton"></th>
+          <th><input type="submit" name="OFF" value="OFF" onclick="setCameraOn(false);" class="bigbutton"></th>
         </tr>
         <tr> 
-          <th><input type="submit" name="UP" value="UP" onclick="cameraUp();" class="button"></th>
-          <th><input type="submit" name="STOP" value="STOP" onclick="cameraStop();" class="button"></th>
-          <th><input type="submit" name="DOWN" value="DOWN" onclick="cameraDown();" class="button"></th>
-        </tr> -->
+          <th><input type="submit" name="UP" value="UP" onclick="cameraUp();" class="bigbutton"></th>
+          <th><input type="submit" name="STOP" value="STOP" onclick="cameraStop();" class="bigbutton"></th>
+          <th><input type="submit" name="DOWN" value="DOWN" onclick="cameraDown();" class="bigbutton"></th>
+        </tr>
       </table>
-      <br>
-      <input type="checkbox" checked="checked" id="rotationalCommand"/>
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="libs/bridge.js"></script>
-    <script type="text/javascript" src="static/script.js"></script>
-    <script src="//js.leapmotion.com/0.2.0-beta1/leap.min.js"></script>
-  
-    <script src="switches/jquery/iphone-style-checkboxes.js"></script>
-    <link rel="stylesheet" href="switches/style.css" type="text/css"/>
-    <script src="static/leap.js"></script>
+
+    <script type="text/javascript" src="static/zmq.js"></script>
+    <script type="text/javascript" src="static/video.js"></script>
+    <script type="text/javascript" src="static/robot_control.js"></script>
+    <script type="text/javascript" src="static/control.js"></script>
   </body>
 </html>

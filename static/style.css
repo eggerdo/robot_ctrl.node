@@ -1,24 +1,10 @@
 body { 
-  font-family: arial; 
-  font-size: 14px; 
-  width: 1280px; 
+  font-size: 22px; 
+  font-family: Cambria, Cochin, Georgia, serif;
+  width: 640px; 
   margin: 0 auto;
   margin-top: 0.9em; 
   margin-bottom: 0.9em;
-}
-
-.rotateleft {
-  -moz-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.rotateright {
-  -moz-transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  transform: rotate(-90deg);
 }
 
 #fps {
@@ -26,83 +12,57 @@ body {
   left: 20px; 
   top: 20px; 
   font-weight: bold; 
-  color: #FF0000;
-  font-family: Cambria, Cochin, Georgia, serif; 
-  font-size: 22px
-}
-
-.movetitle{
-  /*position: relative; */
-/*  width: auto;
-  height: auto; */
-/*  margin: 0 auto;*/
-  font-weight: bold; 
-  background-color: green;
-  font-family: Cambria, Cochin, Georgia, serif; 
-  font-size: 22px
-}
-
-.moveelem {
-  text-align: left;
-  font-weight: bold; 
-  font-family: Cambria, Cochin, Georgia, serif; 
-  font-size: 22px;
-  margin: 0 auto;
-}
-
-#leapStatus {
-/*  background-color: blue;
-  position: relative; */
-  /*left: 20px; 
-  top: 20px; */
-/*  width: 640px; 
-  height: auto; */
-  margin: 0 auto;
-  font-weight: bold; 
-  /*color: #FF0000;*/
-  font-family: Cambria, Cochin, Georgia, serif; 
-  font-size: 44px;
-  /*text-decoration: blink;*/
+  color: #FF0000; 
 }
 
 #video {
-  position: relative; 
-  width: 640px; 
-  height: auto; 
+  width: 100%; 
   margin: 0 auto;
   border: thick solid black;
 }
 
 #image {
-  position: relative; 
   display: block;
   overflow: auto
 }
 
 #control{
-  position: relative;
-  height: auto;
-  width: 640px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
-.button {
+/* Control specific css */
+
+#speedsetting {
+  margin: 0 auto;
+  font-weight: bold; 
+}
+
+.bigbutton {
   height: 40px;
   width: 150px;
-  font-family: Cambria, Cochin, Georgia, serif;
-  font-size: 22px;
   font-weight: bold;
+  font-size: 22px; 
+  font-family: Cambria, Cochin, Georgia, serif;
 }
 
-table { 
-/*  border: 2px solid #CCCCCC; */
-  /*border-collapse: collapse;*/
-  /*width: 250px;*/
-  font-family: Cambria, Cochin, Georgia, serif;
-  font-size: 14px;
+#controltable { 
+  margin: 0 auto;   
+}
+
+/* Leap specific css */
+
+#leapStatus {
+  margin: 0 auto;
+  font-weight: bold; 
+  font-size: 44px;
+}
+
+.movetable { 
   table-layout: fixed;
   width: 100%;
-  /*width: auto;*/
-  /*margin: 0 auto;   */
+}
+
+.moveelem {
+  text-align: left;
+  margin: 0 auto;
 }

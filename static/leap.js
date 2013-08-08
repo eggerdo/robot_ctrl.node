@@ -1,3 +1,12 @@
+/**
+ * Uses th Leap Motion https://www.leapmotion.com/ to control a robot over ZMQ.
+ * Hand Motions are translated into remote commands wich are used to drive
+ * a robot
+ *
+ * Author: D. Egger
+ * Copyright: Distributed Organisms B.V.
+ * Date: Aug. 8, 2013
+ */
 
 var frame_rate = 5;
 
@@ -21,7 +30,7 @@ var MIN_SPEED = 80.0;
 var MAX_ANGLE = 90.0; // in deg
 var MIN_ANGLE = 80.0;
 
-var rotationalCommand = true;
+var leapMode = true;
 
 var origin_x, origin_y, origin_z;
 
@@ -147,7 +156,7 @@ handleLeap = function(hands, pointables, gestures) {
 	}
 
 	if (initialized) {
-		if (rotationalCommand) {
+		if (leapMode) {
 			executeRotationalControl(hands[0]);
 		} else {
 			executeTranslationalControl(hands[0]);
@@ -194,7 +203,7 @@ $(document).ready(function() {
 		checkedLabel: 'Rotational',
 		uncheckedLabel: 'Translational',
 		onChange: function(elem, value) {
-			rotationalCommand = value;
+			leapMode = value;
 			initialized = false;
 		}
 	});
@@ -202,7 +211,7 @@ $(document).ready(function() {
 });
 
 initialize = function(hands) {
-	if (!rotationalCommand) {
+	if (!leapMode) {
 		origin_x = hands.palmPositionX;
 		origin_y = hands.palmPositionY;
 		origin_z = hands.palmPositionZ;

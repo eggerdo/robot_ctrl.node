@@ -1,3 +1,13 @@
+/**
+ * Server that provides a web page for remote control of robots and displaying 
+ * video on a web browser. It opens tcp ports to send and receive ZMQ messages
+ * from the backend (robot server)
+ *
+ * Author: D. Egger
+ * Copyright: Distributed Organisms B.V.
+ * Date: Aug. 8, 2013
+ */
+
 var express	= require('express')
   , app 	= express()
 
