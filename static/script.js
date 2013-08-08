@@ -207,6 +207,7 @@ checkDrivingTimeout = function(command) {
 		setTimeout(function() {
 			if (getTime() - lastDriveTime > TIMEOUT) {
 				if (lastDriveCommand != STOP) {
+					console.log("drive timeout")
 					stop();
 				}
 			} else {
@@ -233,7 +234,7 @@ checkCameraTimeout = function(command) {
 var lastDriveCommand = STOP
 sendDriveCommand = function(command, speed, angle) {
 	lastDriveTime = getTime();
-	if (!driving || (lastDriveCommand != command)) {
+	// if (!driving || (lastDriveCommand != command)) {
 		lastDriveCommand = command;
 		driving = true
 		// clientCreated();
@@ -256,7 +257,7 @@ sendDriveCommand = function(command, speed, angle) {
 		// clientSent();
 
 		checkDrivingTimeout(command);
-	}
+	// }
 }
 
 getTime = function() {
@@ -339,21 +340,21 @@ setDebug = function(val) {
 	}
 }
 
-incSpeed = function() {
-	speed += 10;
-	if (speed > 100) {
-		speed = 100;
-	}
-	$('#speed').text('Speed: ' + speed + '%');
-}
+// incSpeed = function() {
+// 	speed += 10;
+// 	if (speed > 100) {
+// 		speed = 100;
+// 	}
+// 	$('#speed').text(speed + '%');
+// }
 
-decSpeed = function() {
-	speed -= 10;
-	if (speed < 10) {
-		speed = 10
-	}
-	$('#speed').text('Speed: ' + speed + '%');
-}
+// decSpeed = function() {
+// 	speed -= 10;
+// 	if (speed < 10) {
+// 		speed = 10
+// 	}
+// 	$('#speed').text(speed + '%');
+// }
 
 $(function(){
 	ctxAddress = 'ws://' + window.location.hostname + ':9000';
@@ -385,7 +386,7 @@ $(function(){
 
 	sendSyncRequest();
 
-	$('#speed').text('Speed: ' + speed + '%');
+	// $('#speed').text(speed + '%');
 
 	$(document).keydown(function(event) {
 		if (debug) {
