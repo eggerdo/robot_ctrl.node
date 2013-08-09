@@ -198,7 +198,6 @@ onInitializeStart = function() {
 }
 
 $(document).ready(function() {
-	console.log('ready');
 	$(':checkbox').iphoneStyle({
 		checkedLabel: 'Rotational',
 		uncheckedLabel: 'Translational',
@@ -207,7 +206,6 @@ $(document).ready(function() {
 			initialized = false;
 		}
 	});
-	console.log('ready');
 });
 
 initialize = function(hands) {
@@ -247,7 +245,7 @@ executeRotationalControl = function(hands) {
 		// make sure the angle doesn't exceed the maximum
 		angle = Math.min(angle, MAX_ANGLE);
 
-		angle_direction = dx < 0 ? 1 : -1;
+		angle_direction = dx > 0 ? 1 : -1;
 	}
 
 	// z is the direction used for translation
