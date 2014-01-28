@@ -1,11 +1,12 @@
 {
-  "name": "robot_ctrl.node",
+  "name": "leap_ctrl.node",
   "version": "0.1.0",
-  "description": "Robot Remote Control",
-  "main": "robot_ctrl.js",
+  "description": "Robot Remote Control using the Leap Motion Controller",
+  "main": "leap_ctrl.js",
   "author":"Dominik Egger",
   "devDependencies": {
-    "express": "*"
+    "express": "*",
+	"leapjs": "0.3.0-beta3"
   },
   "contributors": []
 }

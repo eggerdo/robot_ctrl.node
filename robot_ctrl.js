@@ -13,8 +13,10 @@ var express	= require('express')
 
 app.configure(function() {
 	app.use(express.static(__dirname));
-	app.use(express.static(__dirname + '/static'));
+	app.use(express.static(__dirname + '/html'));
+	app.use(express.static(__dirname + '/scripts'));
 	app.use(express.static(__dirname + '/libs'));
+	app.use(express.static(__dirname + '/assets'));
 })
 
 app.listen(3000);

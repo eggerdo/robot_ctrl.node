@@ -108,7 +108,3 @@ setTransform = function() {
 		videoDivStyle.width = height+'px'; 
 	}
 }
-
-$(function(){
-	videoSocket.onMessage = onVideoMessage;
-});

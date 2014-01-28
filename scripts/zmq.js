@@ -12,20 +12,21 @@ var cmdSocket,
 	context,
   	videoSocket,
 	eventSendSocket,
-	eventRecvSocket
+	eventRecvSocket;
 
-var zmqServerAddress = window.location.hostname
+var zmqServerAddress = window.location.hostname;
 
-var commandPort = 4010
-  , eventPort = 4020
-  , videoRecvPort = 4002
+var commandPort = 4010,
+    eventPort = 4020,
+    videoRecvPort = 4002;
 
-$(function(){
+initZmq = function() {
+
 	ctxAddress = 'ws://' + window.location.hostname + ':9000';
 	context = new zmq.Context(ctxAddress);
 
 	cmdSocket = context.Socket(zmq.PUSH);
-	var cmdAddress = 'tcp://' + zmqServerAddress + ':' + commandPort;
+	var cmdAddress = 'tcp://' + zmqServerAddress + ':' + Number(commandPort);
 	cmdSocket.connect(cmdAddress);
 	console.log("connect cmd to " + cmdAddress);
 
@@ -35,14 +36,9 @@ $(function(){
 	videoSocket.connect(videoAddress);
 	console.log("connect video to " + videoAddress);
 
-	eventRecvSocket = context.Socket(zmq.SUB);
-	var eventRecvAddress = 'tcp://' + zmqServerAddress + ':' + Number(eventPort+1);
-	eventRecvSocket.connect(eventRecvAddress);
-	console.log("connect event recv to " + eventRecvAddress);
+};
 
-	eventSendSocket = context.Socket(zmq.PUSH);
-	var eventSendAddress = 'tcp://' + zmqServerAddress + ':' + eventPort;
-	eventSendSocket.connect(eventSendAddress);
-	console.log("connect event send to " + eventSendAddress);
-
-});
+sendCommand = function(message) {
+	cmdSocket.send(['', message]);
+	console.log("sent: " + message);
+}
