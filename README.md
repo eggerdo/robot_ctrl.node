@@ -4,6 +4,14 @@ This node provides Remote Control for a Robot over a Web Browser using ZMQ and W
 
 A complete showcase application to control a Romo over a Web Browser is presented on our blog [here]().
 
+## Install Dependencies for ZmqWebBridge
+
+1. apt-get install python-gevent
+
+2. pip install gevent-websocket
+
+3. pip install gevent-zeromq
+
 ## Run
 
 1. Start the Robot Server (see [here]() for an explanation on how to do this).
